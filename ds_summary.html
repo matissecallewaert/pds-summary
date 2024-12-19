@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>&ast;DS Summary&ast;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="ds-summary"><em>DS Summary</em></h1>
+<h1 id="chapter-1-introduction">Chapter 1: Introduction</h1>
+<p><strong>Loose Definition:</strong> A distributed system is a collection of interacting processes appearing as a single application to the end users.</p>
+<p><strong>Definition:</strong> A system where hardware and software components are located at netwrked computers, communicate and coordinate their actions ONLY by passing messages.</p>
+<p><strong>Grid Computing:</strong> A computational grid is a hardware and software infrastructure that provides dependable, consistent, pervasive, and inexpensive access to high-end computational capabilities.</p>
+<p><strong>Cloud Computing:</strong> Is grid computing plus virtualization, elasticity, and pay-as-you-go pricing.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image.png" alt="alt text"></p>
+<h2 id="developing-distributed-systems">Developing distributed systems</h2>
+<h3 id="system-models">System Models</h3>
+<ul>
+<li><strong>System models:</strong> Capture non-functionals of the requirements related to distributed nature of the system.</li>
+<li><strong>Interaction models:</strong> Can we give time guarantees on network communication/process execution?
+<ul>
+<li><strong>Synchronous</strong> system</li>
+<li><strong>Asynchronous</strong> system</li>
+</ul>
+</li>
+<li><strong>Failure models:</strong> Which failures should the application cope with, how will we detect failures, and what will we do in case of failures?
+<ul>
+<li><strong>Process Omission failures:</strong> a process does not fulfill a request.</li>
+<li><strong>Channel Omission failures:</strong> a communication link fails to deliver a message.</li>
+<li><strong>Byzantine failures:</strong> a process sends arbitrary messages.</li>
+<li><strong>Timing failures:</strong> a process violates its timing constraints.
+<ul>
+<li><strong>Solution:</strong> heartbeat, timeout</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Security models:</strong> Who can do what in the system?
+<ul>
+<li>Interception of credentials</li>
+<li>Impersonation</li>
+<li>Copy, change, replay, create messages</li>
+<li><strong>Solution:</strong> encryption, authentication, authorization</li>
+</ul>
+</li>
+</ul>
+<h3 id="logical-architectures">Logical Architectures</h3>
+<ul>
+<li>
+<p><strong>Layered architecture:</strong> Each layer provides services to the layer above it and uses services from the layer below it.</p>
+<ul>
+<li><strong>+</strong>: Reduced number of interfaces, dependencies.</li>
+<li><strong>+</strong>: Easy replacement of a layer.</li>
+<li><strong>-</strong>: Possible duplication of functionality.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-1.png" alt="alt text"></li>
+</ul>
+</li>
+<li>
+<p><strong>Object-based architecture:</strong> Objects communicate by invoking methods on each other.</p>
+<ul>
+<li><strong>+</strong>: Encapsulation, reuse, flexibility.</li>
+<li><strong>-</strong>: Tight coupling, difficult to maintain.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-2.png" alt="alt text"></li>
+</ul>
+</li>
+<li>
+<p><strong>Event-based architecture:</strong> Components communicate by sending events. &quot;publish-subscribe&quot;</p>
+<ul>
+<li><strong>+</strong>: Decoupling, flexibility.</li>
+<li><strong>-</strong>: Difficult to understand, debug, maintain.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-3.png" alt="alt text"></li>
+</ul>
+</li>
+<li>
+<p><strong>Data-centric architecture:</strong> Components communicate by reading and writing shared data.</p>
+<ul>
+<li><strong>+</strong>: Decoupling, flexibility.</li>
+<li><strong>-</strong>: Possibly slow (central bottleneck, locking...).
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-4.png" alt="alt text"></li>
+</ul>
+</li>
+</ul>
+<h3 id="system-architectures">System Architectures</h3>
+<ul>
+<li>
+<p><strong>Client-server:</strong> Client request services from server.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-5.png" alt="alt text"></p>
+</li>
+<li>
+<p><strong>Client-multiple servers:</strong> Client request services from multiple servers. (DNS based load balancing)
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-6.png" alt="alt text"></p>
+</li>
+<li>
+<p><strong>Client-multiple servers:</strong> Client request services from multiple servers. (implicit server lookup)
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-7.png" alt="alt text"></p>
+</li>
+<li>
+<p><strong>Proxy server:</strong> Client request services from proxy server, which requests services from servers.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-8.png" alt="alt text"></p>
+</li>
+</ul>
+<h3 id="p2p-architectures">P2P Architectures</h3>
+<ul>
+<li><strong>Unstructured P2P:</strong> No organization, no central server.
+<ul>
+<li>Links have no other meaning that communication.</li>
+<li>Unstructured search (flooding), this is resource consuming.</li>
+<li><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-9.png" alt="alt text"></li>
+</ul>
+</li>
+<li><strong>Structured P2P:</strong> Organized, each node has a specific role.
+<ul>
+<li>Logical link has relation to service offered.</li>
+<li>Structured search (DHT: Distributed hash table), this is efficient.</li>
+<li><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-10.png" alt="alt text"></li>
+</ul>
+</li>
+</ul>
+<h2 id="middleware">Middleware</h2>
+<p><strong>Role:</strong> Middleware is a software layer that provides a programming abstraction for distributed systems.</p>
+<p><strong>Services:</strong></p>
+<ul>
+<li><strong>Naming service:</strong> Associate logical names to remote entities.</li>
+<li><strong>Discovery and registration service:</strong> Discover and register services.</li>
+<li><strong>Transaction service:</strong> Support distributed (database) transactions.</li>
+<li><strong>Security service:</strong> Provide security services.</li>
+<li><strong>Event service:</strong> Support event-based communication.</li>
+<li><strong>Data replication service:</strong> Replicate data for fault tolerance and optimize data access.</li>
+<li><strong>Persistence service:</strong> Transparently offer data persistence.</li>
+<li><strong>Life cycle service:</strong> Manage the life cycle of distributed objects.</li>
+</ul>
+<h2 id="cap-theorem">Cap Theorem</h2>
+<p><strong>CAP Theorem:</strong> In a distributed system, it is impossible to simultaneously guarantee all three of the following:</p>
+<ul>
+<li><strong>Consistency:</strong> All read/write operations must result in a global consistent state.</li>
+<li><strong>Availability:</strong> All requests on non-failing nodes must get a response.</li>
+<li><strong>Partition tolerance:</strong> The system continues to operate despite network partitions.</li>
+</ul>
+<h2 id="strategies-to-avoid-performance-problems-just-read-this">Strategies to avoid performance problems (just read this)</h2>
+<ol>
+<li>Keep complexity of client software as low as possible and put preferably as much as possible operations in the back-end.</li>
+<li>Use caches when required, but the system should work perfectly as well without caches.</li>
+<li>Make sure the system can reply fast to requests (i.e. avoid large-grain invocations, but split up in small-grain invocations).</li>
+<li>To decouple systems, the use of queues is often useful (to easily add asynchronous processing).</li>
+<li>Make sure the load balancing components work in a decent way (i.e. use appropriate load balancing algorithms).</li>
+<li>Make sure to have very detailed log-files at all times (with different levels of details, to allow easy filtering), make it able to determine immediately the involved host, component, time stamps, and monitored values.</li>
+<li>The detailed log-files should also contain failures, successful operations, response times and statistical processing should be done automatically (e.g. calculating averages, standard deviations, trends).</li>
+<li>When the system runs, it should be able to cope with graceful shutdown of components (one by one).</li>
+<li>The system should start up and work properly with zero-configuration: use good default values, use auto-discovery as much as possible.</li>
+<li>To distribute load, make for instance use of a cluster management system or a cloud environment.</li>
+</ol>
+<h1 id="chapter-2-middleware">Chapter 2: Middleware</h1>
+<h2 id="remote-invocation">Remote Invocation</h2>
+<h3 id="requires">Requires:</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-11.png" alt="alt text"></p>
+<h3 id="positioning">Positioning:</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-12.png" alt="alt text"></p>
+<h3 id="local-and-remote-invocations">Local and remote invocations:</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-13.png" alt="alt text"></p>
+<p>The goal of the remote invocation is to make the invocation of a method on a remote object look like a local invocation. This is done by the middleware.
+It hides:</p>
+<ul>
+<li>Locate/contact the remote object.</li>
+<li>Marshalling (convert parameters to byte stream).</li>
+<li>Fault tolerance measures.</li>
+<li>Communication details.
+But! The programmer must still be aware of the fact that the invocation is remote (network latency, possible failures). The typical approach is that the programmer has to catch exceptions that are thrown by the remote invocation.</li>
+</ul>
+<h3 id="remote-object-reference-ror">Remote Object Reference (ROR)</h3>
+<p>Unique ID for objects in distributed systems. It is unique over time and space.</p>
+<p>Host: Internet Address
+Process: Port number + process creation time
+Object: Object ID
+Object type: Interface ID</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-14.png" alt="alt text"></p>
+<h3 id="fault-tolerance">Fault Tolerance</h3>
+<p><strong>Techniques:</strong></p>
+<ul>
+<li>Retry-request messages</li>
+<li>Duplicate request filtering</li>
+<li>Retransmission of results
+<ul>
+<li>Re-execute call</li>
+<li>History table of results -&gt; retransmit reply</li>
+</ul>
+</li>
+</ul>
+<p><strong>Invocation semantics:</strong></p>
+<ul>
+<li>At most once</li>
+<li>At least once</li>
+<li>Exactly once
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-15.png" alt="alt text"></li>
+</ul>
+<h4 id="rmi-architecture">RMI architecture</h4>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-16.png" alt="alt text"></p>
+<h3 id="request-reply-rr-protocol">Request-reply (RR) protocol</h3>
+<p>Runs in the communication module. It is responsible for:</p>
+<ul>
+<li>send message to server object</li>
+<li>send back return value or exception info to requestor</li>
+<li>enforce appropriate invocation semantics</li>
+</ul>
+<p><strong>Duplicate Filtering Algorithm:</strong> The server keeps a history of the last N requests. If a request is received that is already in the history, the server sends back the result of the previous invocation.</p>
+<h3 id="marshalling">Marshalling</h3>
+<p>Marshalling is the process of converting the parameters of a method call into a byte stream. The byte stream is sent over the network to the remote object. The remote object unmarshals the byte stream to get the parameters.</p>
+<h3 id="rmi-binding-service">RMI binding service</h3>
+<p>The RMI binding service is a service that allows clients to look up remote objects by name. The binding service is a directory service that maps names to remote object references.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-17.png" alt="alt text"></p>
+<h2 id="middleware-services">Middleware services</h2>
+<h3 id="naming-service">Naming service</h3>
+<p>Registration of object references with names. The names are structured in a hierarchy.</p>
+<h3 id="trading-service">Trading service</h3>
+<p>Comparable to the naming service, but lets the objects be located by attributes also.</p>
+<h3 id="event-service">Event service</h3>
+<p>Publish-subscribe model. The event service allows objects to subscribe to events and to publish events.</p>
+<p>Notification: Object that contains information about the event.
+Observer: decouple the object of interest from its subscribers.</p>
+<h3 id="notification-service">Notification service</h3>
+<p>Extends the event service with filters. Notifications have a datatype, the consumers may use filters to specify events they are interested in. Proxies forwards notifications to consumers according to constraints specified in the filters.</p>
+<h3 id="transaction-service">Transaction service</h3>
+<p>A transaction is a sequence of operations that must be executed as a single unit. The transaction service provides the following properties:</p>
+<ul>
+<li>Atomicity: All operations in a transaction are executed or none.</li>
+<li>Consistency: A transaction transforms the system from one consistent state to another.</li>
+</ul>
+<h3 id="persistence-service">Persistence service</h3>
+<p>Automated storing and retrieving of objects.</p>
+<h3 id="activation-service">Activation service</h3>
+<p>Activation: On demand execution of services to reduce server processes/threads. Activate objects when requests arrive. Passivate objects if in consistent state.</p>
+<p>Activator: Keeps table of passive (activatable) objects. Activates objects on demand.</p>
+<h3 id="load-balancing-service">Load balancing service</h3>
+<p>Distribute the load over multiple servers. Often in combination with naming service.</p>
+<h1 id="chapter-3-enterprise-applications">Chapter 3: Enterprise Applications</h1>
+<h2 id="jee-based-applications-java-enterprise-edition">JEE-based applications (Java Enterprise Edition)</h2>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-18.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-19.png" alt="alt text"></p>
+<p><strong>Inversion of Control:</strong> Decisions taken at the server side, not the client side. The container provides transparent features.</p>
+<h2 id="benefits">Benefits</h2>
+<ol>
+<li><strong>Simplify the development of large, distributed applications.</strong>
+<ol>
+<li>The EJB container provides system-level services to enterprise beans.</li>
+<li>The bean developer can concentrate on solving business problems.</li>
+<li>The EJB container is responsible for system-level services such as transactions, management and security authentication.</li>
+</ol>
+</li>
+<li><strong>The client developer can focus on the presentation of the client.</strong>
+<ol>
+<li>Because the beans contain the business logic.</li>
+<li>The clients are thinner.</li>
+</ol>
+</li>
+<li><strong>Enterprise beans are portable/reusable components.</strong>
+<ol>
+<li>The application assembler can build new applications from existing beans.</li>
+<li>The applications can run on any compliant JEE server.</li>
+</ol>
+</li>
+</ol>
+<h1 id="chapter-4-timing-and-synchronization">Chapter 4: Timing and synchronization</h1>
+<h2 id="physical-clock-synchronization">Physical clock synchronization</h2>
+<p>In distributed systems there is <strong>no global state</strong> notion. How can we be sure about event ordering when there is no global time notion?</p>
+<p>There are two flavours of time:</p>
+<ul>
+<li><strong>Physical time:</strong> Real time, related to solar time, this is important when a connection to the &quot;real&quot; time is needed.</li>
+<li><strong>Logical time:</strong> Time that is related to the order of events in the system. This is easier to implement.</li>
+</ul>
+<h4 id="hardware-clocks">Hardware clocks</h4>
+<p>A hardware clock is made up of a crystal oscillator and a counter. The counter is incremented by the oscillator at a fixed rate. The counter is read by the operating system.</p>
+<p>Hardware clocks are not perfect. They drift and skew.</p>
+<ul>
+<li>The <strong>drift rate</strong> is the difference between the rate of the clock and the rate of the real time.</li>
+<li>The <strong>skew</strong> is the difference between the time of the clock and the real time.</li>
+</ul>
+<p>The clock resolution is the smallest time interval that can be measured by the clock = 1/H. With H the amount of times the clock is updated per second.</p>
+<p>A correct clock has a bounded drift rate and the monotonicity property. The clock is correct if the time it shows is always greater than the time it showed before.</p>
+<h3 id="external-synchronization">External synchronization</h3>
+<p>There is an external &quot;authoritative&quot; process clock that is used to synchronize the clocks of the other processes. The authoritative process sends a message to the other processes with the time it has. The other processes adjust their clocks to the time of the authoritative process.</p>
+<p>All the clocks have a bound skew that needs to be smaller than a predifined value.<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-20.png" alt="alt text"> with pi the collection of clocks, without the external one.</p>
+<h3 id="internal-synchronization">Internal synchronization</h3>
+<p>Here the skew between any two clocks is bounded by a predefined value. The clocks are synchronized with each other.<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-21.png" alt="alt text">with pi the collection of clocks.</p>
+<h3 id="obvious-property">Obvious property</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-22.png" alt="alt text"></p>
+<h3 id="client-server-algorithm">Client-server algorithm</h3>
+<p>Here the meaning of the client server is that one process (p) has a better clock than the other process (q). <strong>The goal of the synchronization is to minimize the skew between the clocks of p and q.</strong></p>
+<p>The problem with this is that when p sends its current time to q, the time it takes for the message to arrive is not taken into account.</p>
+<p><strong>Synchronous system:</strong> Here the time it takes for a message to arrive is bounded by two bounds, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\delta_{max}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\delta_{min}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</p>
+<p>Estimate: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>C</mi><mi>q</mi></msub><mo>=</mo><msub><mi>t</mi><mi>q</mi></msub><mo>+</mo><mfrac><mrow><msub><mi>δ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub><mo>+</mo><msub><mi>δ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">C_q = t_q + \frac{\delta_{min} + \delta_{max}}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0715em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.9012em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">q</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.2412em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8962em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0379em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">+</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:-0.0379em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+<p>Worst case we will have a skew of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><msub><mi>δ</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><mo>−</mo><msub><mi>δ</mi><mrow><mi>m</mi><mi>i</mi><mi>n</mi></mrow></msub></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{\delta_{max} - \delta_{min}}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.2412em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8962em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.4101em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:-0.0379em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ma</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0379em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">min</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-23.png" alt="alt text"></p>
+<p><strong>Asynchronous system:</strong> Here the time it takes for a message to arrive is not known, but we have an estimate of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>≈</mo><mi>R</mi><mi>T</mi><mi>T</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\delta \approx RTT/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">RTT</span><span class="mord">/2</span></span></span></span>. The RTT is the round trip time.</p>
+<h3 id="cristians-algorithm-for-asynchronous-systems">Cristian's algorithm (for asynchronous systems)</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-24.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-25.png" alt="alt text"></p>
+<h3 id="peering-algorithm-ntp-network-time-protocol">Peering algorithm: NTP (Network Time Protocol)</h3>
+<p>NTP is a protocol that is used to synchronize the clocks of computers over a network.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-26.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-27.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-28.png" alt="alt text"></p>
+<p>with d the delay = <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>δ</mi><mi>r</mi></msub><mo>+</mo><msub><mi>δ</mi><mi>a</mi></msub></mrow><annotation encoding="application/x-tex">\delta_r + \delta_a</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0379em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">a</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>.</p>
+<h3 id="ntp-modes">NTP Modes</h3>
+<ul>
+<li><strong>Multicast:</strong> Used in high speed (low delay) LAN environments. The server multicasts the time to all clients. The clients then assume some average delay.</li>
+<li><strong>Procedure call:</strong> Using Christian's algorithm. Better accuracy than multicast.</li>
+<li><strong>Symmetric:</strong> Peering servers execute P2P algorithm. They collect 8 &lt;o,d&gt; pairs, using the optimal o based on minimal d. Used to achieve high accuracy.</li>
+</ul>
+<h3 id="peering-algorithm-berkeley-algorithm">Peering algorithm: Berkeley algorithm</h3>
+<p>The peering processes elect time server. This coordinator actively polls its clients (participants).</p>
+<ol>
+<li>Poll for participant time.</li>
+<li>Use Christian's algorithm to measure RTT.</li>
+<li>Calculate the average RTT.
+<ol>
+<li>But neglect participants with RTT &gt; RTTmax.</li>
+<li>If the time between the two is bigger than a certain threshold, the coordinator will not use the participant.</li>
+<li>Send the adjustment to the participant.</li>
+</ol>
+</li>
+<li>Elect a new coordinator if the current one fails.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-29.png" alt="alt text">
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-30.png" alt="alt text"></li>
+</ol>
+<p>To make sure you have no negative adjustments, you just add up until all corrections are positive.</p>
+<h2 id="logical-clocks">Logical clocks</h2>
+<p>Logical clocks are used to order events in a distributed system. They are not related to physical time.</p>
+<p>Event ordering is easy when the events happen in the same process. But when the events happen in different processes, it is more difficult.</p>
+<p>How can we order events in a distributed system?</p>
+<p>First some common sense about ordering events (-&gt;):</p>
+<ol>
+<li>if both event belong to the same process, global ordering coincides with local ordering.</li>
+<li>Sending a message happens before resceiving a message.</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>a</mi><mo>→</mo><mi>b</mi><mo stretchy="false">)</mo><mi>A</mi><mi>N</mi><mi>D</mi><mo stretchy="false">(</mo><mi>b</mi><mo>→</mo><mi>c</mi><mo stretchy="false">)</mo><mo>⇒</mo><mo stretchy="false">(</mo><mi>a</mi><mo>→</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(a \rightarrow b) AND (b \rightarrow c) \Rightarrow (a \rightarrow c)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span></span></span></span></li>
+</ol>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-31.png" alt="alt text"></p>
+<p>Events are <strong>concurrent</strong> if no chain of events can be found between the two events.</p>
+<p><strong>causality:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>e</mi><mo>→</mo><msup><mi>e</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow><annotation encoding="application/x-tex">e \rightarrow e&#x27;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7519em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7519em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span> doesn't mean that e causes e', it means that e' doesn't cause e.</p>
+<p>To really determine if e causes e', we need a clock.</p>
+<h3 id="lamports-logical-clocks">Lamport's logical clocks</h3>
+<p>Each process <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">p_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> maintains a scalar <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">L_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> with initial value 0. This value is increased monotonically just before an event happens. If there is no communication between events, we have the following situation.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-32.png" alt="alt text"></p>
+<p>In situations where there is communication between events, we have the following situation.
+First the sender of the event sends the value of its clock to the receiver. The receiver then sets its clock to the maximum of its own clock and the received clock + 1. Creating the following:
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-33.png" alt="alt text"></p>
+<p>Lamport's clock just keeps track of the maximum amount of events seen at a process from any process in P.</p>
+<h3 id="vector-clocks">Vector clocks</h3>
+<p>Keep track of the number of events seen from each process individually. Each process has a vector <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">V_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.2222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span> of N elements.</p>
+<p>If an event has a clock value, indicating it has seen more events from every process than another event, THEN we are sure that the event has happened after the other event.
+<img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-34.png" alt="alt text"></p>
+<p><strong>drawbacks:</strong> There is more data exchanged and the number of processes needs to be known.</p>
+<h2 id="performance-metrics">Performance metrics</h2>
+<p><strong>Response Time:</strong> A function of the number of simultaneous requests and the time it takes to process a request.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-36.png" alt="alt text"></p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>w</mi><mi>a</mi><mi>i</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T_{wait}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mord mathnormal mtight">ai</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> is the time spent in queue before a serving thread can be created.
+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mrow><mi>f</mi><mi>o</mi><mi>r</mi><mi>w</mi></mrow></msub><mo separator="true">,</mo><msub><mi>T</mi><mrow><mi>b</mi><mi>a</mi><mi>c</mi><mi>k</mi><mi>w</mi></mrow></msub></mrow><annotation encoding="application/x-tex">T_{forw}, T_{backw}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.9694em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10764em;">f</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">or</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">ba</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> are the delays of the sum of the link delays on the path from the client to the server and back. That <strong>link delay</strong> consists of the processing delay, queuing delay, transmission delay and propagation delay.</p>
+<ul>
+<li><strong>Processing delay:</strong> The time it takes to process a request until the packet is assigned to the output queue.</li>
+<li><strong>Queuing delay:</strong> The time it takes for the packet to wait in the queue.</li>
+<li><strong>Transmission delay:</strong> The time it takes to transmit the packet over the link.</li>
+<li><strong>Propagation delay:</strong> The time it takes for the packet to travel from the sender to the receiver.</li>
+</ul>
+<p><strong>Throughput:</strong> The maximum number of simultaneous requests per second.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-35.png" alt="alt text"></p>
+<h1 id="chapter-5-coordination">Chapter 5: Coordination</h1>
+<p>In a distributed system, how to coordinate actions and the global state (shared variables)?</p>
+<h2 id="failure-detection">Failure detection</h2>
+<p><strong>Unreliable failure detectors:</strong> Only hints about the failure of a process.</p>
+<ul>
+<li><strong>suspected:</strong> The process is probably crashed.</li>
+<li><strong>unsuspected:</strong> The process is probably alive.</li>
+</ul>
+<p><strong>Reliable failure detectors:</strong> Sure about crashing of a process.</p>
+<ul>
+<li><strong>failed:</strong> The process has definitely crashed.</li>
+<li><strong>unsuspected:</strong> The process is probably still alive.</li>
+</ul>
+<h3 id="algorithms">Algorithms</h3>
+<ol>
+<li>Hearth beat from p</li>
+<li>Server polls p</li>
+</ol>
+<p><strong>Hearth beat:</strong> p sends a message m to q every T seconds. q measures IAT of m : <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">\Delta m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span><span class="mord mathnormal">m</span></span></span></span>.</p>
+<p><strong>Synchronous</strong></p>
+<p>The bounded network delay <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mo>&lt;</mo><mi mathvariant="normal">Δ</mi></mrow><annotation encoding="application/x-tex">\delta &lt; \Delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span></span></span></span> and the message is delivered.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-37.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-38.png" alt="alt text"></p>
+<p><strong>Asynchronous</strong></p>
+<p>Here we can make no assumption on network delay. Only suspicion if <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>m</mi></mrow><annotation encoding="application/x-tex">\Delta m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord">Δ</span><span class="mord mathnormal">m</span></span></span></span> becomes exceedingly large.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-39.png" alt="alt text"></p>
+<h2 id="mutual-exclusion">Mutual exclusion</h2>
+<p><strong>Critical section:</strong> A part of the code that can only be executed by one process at a time.</p>
+<p>The goal is to coordinate process access to shared resources.</p>
+<p>In the distributed case, this can only be done by message passing.</p>
+<p><strong>Consider:</strong> N processes with NO shared variables. They access common resources in a critical section. It is an asynchronous system and all the processes can communicate with each other.</p>
+<p><strong>Failure model:</strong> They use reliable channels, there are no process failures and the processes are well-behaved (they have no bad intentions).</p>
+<p>A Good solution should contain the following properties:</p>
+<ol>
+<li><strong>Safety [REQUIRED]:</strong> At most one process is in the critical section.</li>
+<li><strong>Liveness [REQUIRED]:</strong> If a process wants to enter the critical section, it will eventually do so.</li>
+<li><strong>Fairness [BONUS]:</strong> Use logical clock to order access requests.</li>
+</ol>
+<p>How will we quantify the solution quality?
+Evaluation metrics:</p>
+<ul>
+<li><strong>Bandwith consumption:</strong> The number of messages sent.</li>
+<li><strong>Client delay:</strong> The time it takes for a client to enter the critical section, measured in an <strong>UNLOADED</strong> system.</li>
+<li><strong>System throughput:</strong> The number of processes that can enter the critical section in a given time period. However this depends on the resource access time. A derived measure is the:
+<ul>
+<li><strong>Synchonization delay</strong> which is the time it takes for a process to enter the critical section, measured in a <strong>LOADED</strong> system.</li>
+</ul>
+</li>
+</ul>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-40.png" alt="alt text"></p>
+<h3 id="centralized-algorithm">Centralized algorithm</h3>
+<p>One process is the coordinator. The coordinator decides who can enter the critical section. This is easy to implement but not very scalable.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-41.png" alt="alt text"></p>
+<h4 id="algo-ok">Algo OK?</h4>
+<ul>
+<li><strong>Safety:</strong> OK -&gt; guarded by token variable</li>
+<li><strong>Liveness:</strong> OK -&gt; Request to enter: all processes eventually leave, each leave dequeues a message from Q. If oldest request is dequeued, every request eventually handled. Request to leave: no permission needed to leave.</li>
+<li><strong>Fairness:</strong> OK -&gt; FIFO queue</li>
+</ul>
+<h4 id="algo-efficiency">Algo efficiency?</h4>
+<p><strong>Bandwith:</strong> 2 messages/enter, 1 message/leave
+<strong>Client delay:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">2\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>(=RTT)/enter, 0/leave
+<strong>System throughput:</strong> 1/RTT</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-42.png" alt="alt text"></p>
+<h3 id="ring-based-algorithm">Ring-based algorithm</h3>
+<p>Processes are organized in a ring. The token is passed from process to process. The process that has the token can enter the critical section.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-43.png" alt="alt text"></p>
+<h4 id="algo-ok-1">Algo OK?</h4>
+<ul>
+<li><strong>Safety:</strong> OK -&gt; Process can only send the token if it has received the token.</li>
+<li><strong>Liveness:</strong> OK -&gt; Token circulates in the ring, no starvation.</li>
+<li><strong>Fairness:</strong> Not guaranteed -&gt; Process needs luck for early access, the order is not based on request time.</li>
+</ul>
+<h4 id="algo-efficiency-1">Algo efficiency?</h4>
+<p><strong>Bandwith:</strong> Worst case: N messages, Best case: 1 message, Average case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(N+1)/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">/2</span></span></span></span> messages.</p>
+<p><strong>Client delay:</strong> Worst case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>δ</mi></mrow><annotation encoding="application/x-tex">N\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, Best case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">0\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> -&gt; you just get the token, so no waiting, Average case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>δ</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N\delta/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord">/2</span></span></span></span></p>
+<p><strong>Synchonization delay:</strong> Worst case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi>δ</mi></mrow><annotation encoding="application/x-tex">N\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, Best case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>, Average case: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>N</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mi>δ</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">(N+1)\delta/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord">/2</span></span></span></span></p>
+<h3 id="multicast-ricart-agrawala-algorithm">Multicast: Ricart-Agrawala algorithm</h3>
+<p>Processes send a request to all other processes. They can enter the critical section if they have received a reply from all other processes. They can use multicast to reduce bandwidth. Use a Lamport clock to order the requests.</p>
+<p>Each process has:</p>
+<ul>
+<li><strong>State variable:</strong> Released, wanted and Held.</li>
+<li><strong>Lamport clock:</strong> To order requests.</li>
+<li><strong>Request queue:</strong> To store pending requests. This queue is organized using the lamport clock, each request contains the following: &lt;p, T&gt;.</li>
+</ul>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-44.png" alt="alt text"></p>
+<h4 id="algo-ok-2">Algo OK?</h4>
+<ul>
+<li><strong>Safety:</strong> OK -&gt; The proof shows that p and q cannot be executing simultaneously in the CS.</li>
+<li><strong>Liveness:</strong> OK -&gt; Every request is eventually handled. Meaning that every process will eventually receive (N-1) answers.</li>
+<li><strong>Fairness:</strong> OK -&gt; The order of the requests is based on the Lamport clock.</li>
+</ul>
+<h4 id="algo-efficiency-2">Algo efficiency?</h4>
+<p><strong>Bandwith:</strong> N(=1 if multicast is supported) messages/request, (N-1) message/reply. No message needed for leaving (= it is just the reply to the request of the following process that wants the CS).</p>
+<p><strong>Client delay:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">2\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> for enter, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">0\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> for leaving.</p>
+<p><strong>Synchonization delay:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>. The time it takes for a process to enter the critical section, measured in a <strong>LOADED</strong> system.</p>
+<h3 id="multicast-maekawa-voting-algorithm">Multicast: Maekawa voting algorithm</h3>
+<p>Processes are organized in a grid. Each process can enter the critical section if it has received a reply from a majority of the processes in its column and row. This means that not all processes need to reply.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-45.png" alt="alt text"></p>
+<p>Voting set size:</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-46.png" alt="alt text"></p>
+<h4 id="algo-ok-3">Algo OK?</h4>
+<ul>
+<li><strong>Safety:</strong> OK -&gt; The proof shows that p and q cannot be executing simultaneously in the CS.</li>
+<li><strong>Liveness:</strong> Deadlock prone -&gt; Use the Lamport clock to organize Q.</li>
+<li><strong>Fairness:</strong> OK -&gt; The order of the requests is based on the Lamport clock.</li>
+</ul>
+<h4 id="algo-efficiency-3">Algo efficiency?</h4>
+<p><strong>Bandwith:</strong> K request messages, K reply messages. K release messages.</p>
+<p><strong>Client delay:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">2\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> for enter, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">0\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">0</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span> for leaving.</p>
+<p><strong>Synchonization delay:</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>δ</mi></mrow><annotation encoding="application/x-tex">2\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span></span></span></span>. The release and reply message delays summed together.</p>
+<h4 id="difference-between-ricart-agrawala-and-maekawa">Difference between Ricart-Agrawala and Maekawa</h4>
+<p>Maekawa:</p>
+<ul>
+<li>Additional state variable per process needed: Voting.</li>
+<li>Multicast request to enter to voting set only.</li>
+<li>Explicit leave needed, so voting processes can vote for other process.</li>
+</ul>
+<p>Needs also another type of message: <strong>release</strong>.</p>
+<h3 id="summary-of-4-algorithms">Summary of 4 algorithms</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-47.png" alt="alt text"></p>
+<h3 id="suzuki-kasami-algorithm">Suzuki-Kasami algorithm</h3>
+<p>Completed connected network of processes, token is passed between processes. The process that has the token can enter the critical section.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-48.png" alt="alt text"></p>
+<p>To enter the CS: N-1 messages with the request, receive 1 message with token = N messages.</p>
+<h3 id="raymonds-algorithm">Raymond's algorithm</h3>
+<p>Processes connected through tree topology, the token is passed between processes.</p>
+<p>The process that holds the token is the root of the tree.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-49.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-50.png" alt="alt text"></p>
+<h3 id="group-mutual-exclusion">Group mutual exclusion</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-51.png" alt="alt text"></p>
+<h2 id="election-algorithms">Election algorithms</h2>
+<p><strong>Goal:</strong> Elect a coordinator in a distributed system.</p>
+<p><strong>Correctness requirements:</strong></p>
+<ul>
+<li><strong>Safety [REQUIRED]:</strong> Only one process is elected.</li>
+<li><strong>Liveness [REQUIRED]:</strong> Eventually a process is elected.</li>
+</ul>
+<p><strong>Evaluation metrics:</strong></p>
+<ul>
+<li><strong>Bandwith:</strong> The number of messages sent in the election process.</li>
+<li><strong>Turn around time:</strong> Time needed for election round.</li>
+</ul>
+<h3 id="chang-roberts-ring-based-algorithm">Chang-Roberts: Ring-based algorithm</h3>
+<p>Processes are organized in a ring. The process with the highest ID is elected as the coordinator.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-52.png" alt="alt text"></p>
+<h4 id="algo-ok-4">Algo OK?</h4>
+<ul>
+<li><strong>Safety:</strong> OK -&gt; Only one process is elected. But IDs need to be unique!</li>
+<li><strong>Liveness:</strong> OK -&gt; No failures, messages are allowed to circulate.</li>
+</ul>
+<h4 id="algo-efficiency-4">Algo efficiency?</h4>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-53.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-54.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-55.png" alt="alt text"></p>
+<h3 id="garcia-molina-bully-algorithm">Garcia-Molina: Bully algorithm</h3>
+<p>The <strong>Garcia-Molina Bully Algorithm</strong> is a distributed algorithm used for leader election in distributed systems. It ensures that the process with the highest ID becomes the leader. Here's a concise summary of how it works:</p>
+<ol>
+<li>
+<p><strong>Election Initiation</strong>: When a process detects that the current leader has failed, it starts an election by sending election messages to all processes with higher IDs.</p>
+</li>
+<li>
+<p><strong>Responses</strong>:</p>
+<ul>
+<li>If a higher-ID process responds, it takes over the election process by sending election messages to processes with IDs higher than its own.</li>
+<li>If no higher-ID process responds, the initiating process declares itself the leader.</li>
+</ul>
+</li>
+<li>
+<p><strong>Leader Announcement</strong>: Once a leader is elected, it announces itself to all processes in the system.</p>
+</li>
+</ol>
+<p>The algorithm assumes that:</p>
+<ul>
+<li>Processes can communicate reliably.</li>
+<li>Every process knows the IDs of all other processes.</li>
+<li>Failure detection is available to identify leader failure.</li>
+</ul>
+<h4 id="algo-ok-5">Algo OK?</h4>
+<ul>
+<li><strong>Safety:</strong> OK if there is no process replacement.</li>
+<li><strong>Liveness:</strong> OK -&gt; messages delivered reliably.</li>
+</ul>
+<h3 id="franklins-algorithm">Franklin's algorithm</h3>
+<p>Variant of Chang Roberts algorithm. It uses a bidirectional communication ring. Nodes are active or passive, initially all nodes are active. (We all know how it works).</p>
+<h4 id="algo-performance">Algo performance</h4>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mo>+</mo><msub><mrow><mi>log</mi><mo>⁡</mo></mrow><mn>2</mn></msub><mi>N</mi></mrow><annotation encoding="application/x-tex">1+\log_{2}N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7278em;vertical-align:-0.0833em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9386em;vertical-align:-0.2441em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.207em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> are needed to elect an unique leader. <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>N</mi></mrow><annotation encoding="application/x-tex">log_2N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> are needed to elect a leader in a ring and then one round to announce the leader.</p>
+<h3 id="petersons-algorithm">Peterson's algorithm</h3>
+<p>Peterson's algorithm, as explained in the slides, is a <strong>variant of the Chang-Roberts Election Algorithm</strong> that operates in a unidirectional ring topology, using <strong>aliases</strong> for leader election. It differs in how it determines the leader and handles communication in rounds.</p>
+<h4 id="key-elements">Key Elements:</h4>
+<ol>
+<li><strong>Alias System:</strong> Each process has an alias, which can change during the election process.</li>
+<li><strong>Unidirectional Communication:</strong> Processes communicate in one direction around the ring.</li>
+<li><strong>Active and Passive Nodes:</strong>
+<ul>
+<li><strong>Active nodes</strong> participate in the election process.</li>
+<li><strong>Passive nodes</strong> only forward messages.</li>
+</ul>
+</li>
+</ol>
+<h4 id="algorithm-outline">Algorithm Outline:</h4>
+<ol>
+<li>
+<p><strong>Initialization:</strong></p>
+<ul>
+<li>Initially, all nodes are active.</li>
+<li>Each process <code>i</code> sends its alias to its successor and receives the alias from its predecessor.</li>
+</ul>
+</li>
+<li>
+<p><strong>Round Logic:</strong></p>
+<ul>
+<li>If a process receives an alias equal to its own, it becomes the leader.</li>
+<li>If the received alias is different:
+<ul>
+<li>The process forwards the alias to its successor.</li>
+<li>It also receives an alias from the predecessor of its predecessor.</li>
+</ul>
+</li>
+<li>The process updates its alias if:
+<ul>
+<li>The received alias is greater than the maximum of its own alias and the alias two steps behind.</li>
+<li>Otherwise, the process becomes passive.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Termination:</strong></p>
+<ul>
+<li>When only one active process remains (i.e., it receives its own alias), it declares itself the leader.</li>
+</ul>
+</li>
+</ol>
+<h4 id="performance">Performance:</h4>
+<ul>
+<li>Similar to <strong>Franklin’s algorithm</strong>, it requires <code>1 + log₂(N)</code> rounds to elect a leader in a ring with <code>N</code> processes.</li>
+<li>Despite the unidirectional communication, the total number of messages exchanged is comparable to the bidirectional Franklin's algorithm.</li>
+</ul>
+<p>This approach efficiently narrows down active participants while leveraging the alias system to identify a unique leader, demonstrating a robust adaptation of ring-based election protocols.</p>
+<h3 id="dolev-klawe-rodeh-algorithm">Dolev-Klawe-Rodeh algorithm</h3>
+<p>Same approach as Peterson's algorithm, but with a different way of updating the alias. It uses a special leader message to announce the leader.</p>
+<h3 id="tree-election-algorithm">Tree election algorithm</h3>
+<ol>
+<li>
+<p><strong>Topology:</strong> The processes form an acyclic graph (tree structure). Each node maintains:</p>
+<ul>
+<li>A <strong>list of child nodes</strong> (can be empty).</li>
+<li>A <strong>parent link</strong> (except for the root).</li>
+</ul>
+</li>
+<li>
+<p><strong>Algorithm Outline:</strong></p>
+<ul>
+<li><strong>Information Collection:</strong>
+<ul>
+<li>Each node gathers the IDs of its child nodes.</li>
+<li>Computes the maximum of its children’s IDs and its own ID.</li>
+<li>Passes this maximum value up to its parent node.</li>
+</ul>
+</li>
+<li><strong>Leader Identification:</strong>
+<ul>
+<li>The root node collects all maximum values from its children.</li>
+<li>Determines the leader by identifying the largest ID in the tree.</li>
+</ul>
+</li>
+<li><strong>Leader Announcement:</strong>
+<ul>
+<li>The root node sends the leader ID back down to all nodes in the tree.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Initialization:</strong></p>
+<ul>
+<li>The algorithm is typically started by <strong>leaf nodes</strong>, which report their IDs up the tree.</li>
+</ul>
+</li>
+<li>
+<p><strong>Key Properties:</strong></p>
+<ul>
+<li><strong>Safety:</strong> Ensures only one leader is elected (the node with the highest ID).</li>
+<li><strong>Efficiency:</strong> Communication complexity is proportional to the number of edges in the tree.</li>
+</ul>
+</li>
+<li>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Suited for hierarchical or tree-structured systems.</li>
+<li>Efficient for large systems where tree-based communication minimizes message overhead.</li>
+</ul>
+</li>
+</ol>
+<h3 id="echo-algorithm-with-extinction">Echo algorithm with extinction</h3>
+<p>The <strong>Echo Algorithm with Extinction</strong> is a leader election algorithm designed for arbitrary networks and works by initiating and propagating &quot;waves&quot; of messages to identify a unique leader.</p>
+<ol>
+<li>
+<p><strong>Topology:</strong> Works on <strong>any</strong> network graph, not restricted to a specific structure like a tree or ring.</p>
+</li>
+<li>
+<p><strong>Algorithm Outline:</strong></p>
+<ul>
+<li><strong>Wave Initiation:</strong>
+<ul>
+<li>Multiple nodes may initiate a &quot;wave&quot; with a unique ID (typically their own).</li>
+<li>Each wave is tagged with the ID of the initiating node.</li>
+</ul>
+</li>
+<li><strong>Message Propagation:</strong>
+<ul>
+<li>Nodes forward wave messages to their neighbors.</li>
+<li>If a node receives a wave with a higher ID than the one it is currently participating in, it switches to the higher ID and abandons the lower-ID wave.</li>
+<li>If a node receives waves with lower IDs than its current wave, it drops those messages.</li>
+</ul>
+</li>
+<li><strong>Wave Completion:</strong>
+<ul>
+<li>The wave with the largest ID propagates through the entire network.</li>
+<li>Non-initiating nodes join the wave with the largest ID and ignore others.</li>
+</ul>
+</li>
+<li><strong>Leader Announcement:</strong>
+<ul>
+<li>The node that initiated the wave with the largest ID is declared the leader.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Key Properties:</strong></p>
+<ul>
+<li><strong>Extinction Mechanism:</strong> Lower-ID waves are gradually &quot;extinguished&quot; as nodes only participate in waves with the highest ID encountered.</li>
+<li><strong>Safety:</strong> Ensures only one leader (the node with the largest ID) is elected.</li>
+<li><strong>Liveness:</strong> Guarantees all nodes eventually participate in the wave with the largest ID.</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance:</strong></p>
+<ul>
+<li>Message complexity: At most <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo>×</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N \times E)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mclose">)</span></span></span></span>, where <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi></mrow><annotation encoding="application/x-tex">N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span> is the number of nodes and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span></span></span></span> is the number of edges.</li>
+<li>Efficient for dense or arbitrary networks where multiple waves need to be resolved.</li>
+</ul>
+</li>
+<li>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Handles dynamic and arbitrary network topologies.</li>
+<li>Robust to multiple simultaneous initiators.</li>
+</ul>
+</li>
+</ol>
+<p>The Echo Algorithm with Extinction ensures that the largest-ID wave completes, electing a single leader efficiently while minimizing the impact of redundant messages from smaller-ID waves.</p>
+<h3 id="minimum-spanning-tree">Minimum spanning tree</h3>
+<p>Here we first make the MST using Kruskal, in the distributed case we need to know what nodes are in the same tree and whether an edge is an outgoing edge of the tree. Because of this, the nodes need to work together to find the least weight outgoing edge. When we have the MST, we can determine the node with the largest ID and elect that one as the leader.</p>
+<h1 id="chapter-6-distributed-consensus-with-failures">Chapter 6: Distributed consensus with failures</h1>
+<h2 id="distributed-consensus">Distributed consensus</h2>
+<p><strong>Goal:</strong> Reach an agreement on a single value among a group of processes even though some of the processes may fail. All correct processes must agree on the same value at the end. A correct process is a process that didn't crash or misbehaved.</p>
+<p><strong>Important properties:</strong></p>
+<ul>
+<li><strong>Agreement:</strong> All correct processes must agree on the same value.</li>
+<li><strong>Validity:</strong> If all processes decide for the same initial value, then all correct processes must decide for that value.</li>
+<li><strong>Termination:</strong> All correct processes must eventually decide.</li>
+</ul>
+<p>A <strong>k-crash consensus algorithm</strong>* is an algorithm that can reach consensus if at most k processes crash.</p>
+<p>An assumption we will follow here is that the network topology is complete, it is always strongly connected, even when processes fail.</p>
+<h3 id="1-crash-consensus-problem">1-crash consensus problem</h3>
+<p>If processes cannot observe that other processes have crashed, then there is no termination algorithm for 1-crash consensus. <strong>There is need for a probabilistic approach.</strong></p>
+<p>In case of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>≥</mo><mi>N</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">k\ge N/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304em;vertical-align:-0.136em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≥</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord">/2</span></span></span></span>: There is no probabilistic algorithm for k-crash consensus. The network can however be divided in two disjoint parts.</p>
+<h3 id="bracha-toueg-algorithm">Bracha-Toueg algorithm</h3>
+<p>The Bracha-Toueg algorithm is a <strong>probabilistic algorithm</strong> for solving the k-crash consensus problem in a distributed system. It uses a <strong>randomized approach</strong> to reach consensus when one process may crash.</p>
+<p>It assumes <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>&lt;</mo><mi>N</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">k &lt; N/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7335em;vertical-align:-0.0391em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord">/2</span></span></span></span>, the message that is send each round contains (n, b, w), n is the round number, b is the value and w is the weight of the message.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-56.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-57.png" alt="alt text"></p>
+<h3 id="consensus-with-failure-detection">Consensus with failure detection</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-58.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-59.png" alt="alt text"></p>
+<h3 id="chandra-toueg-algorithm">Chandra-Toueg algorithm</h3>
+<p>Assumes that failure detector is less accurate than in Bracha-Toueg. It works with acknowledgement messages. Works correctly if k &lt; N/2.</p>
+<h2 id="byzantine-consensus">Byzantine consensus</h2>
+<p>Byzantine processes may start to show strange behaviour.</p>
+<p>Here the assumptions for the algorithms are:</p>
+<ul>
+<li>Processes are either correct or Byzantine.</li>
+<li>There is a complete network topology.</li>
+</ul>
+<p>k-Byzantine consensus algorithm can cope with up to k Byzantine processes.</p>
+<h3 id="chandra-toueg-byzantine-consensus-algorithm">Chandra-Toueg Byzantine consensus algorithm</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-60.png" alt="alt text"></p>
+<h3 id="clock-synchronization-with-byzantine-processes">Clock synchronization with Byzantine processes</h3>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-61.png" alt="alt text"></p>
+<h1 id="chapter-7-anonymous-networks">Chapter 7: Anonymous networks</h1>
+<p>In previous chapters the assumption was that the processes had unique ID's. However this is not always the case.</p>
+<ol>
+<li>No unique ID for all processes in heterogeneous settings.</li>
+<li>Processes do not reveal ID for security reasons.</li>
+<li>No transmission or storage of ID (to keep footprint low).</li>
+</ol>
+<h2 id="probabilistic-algorithms">Probabilistic Algorithms</h2>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-62.png" alt="alt text"></p>
+<h2 id="itai-rodeh-election-algorithm">Itai-Rodeh election algorithm</h2>
+<p>This is an adapted version of Chang-Roberts election algorithm. It is the Las Vegas algorithm for ring topologies.</p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-63.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-64.png" alt="alt text"></p>
+<p>with n = election round, i = the largest ID seen so far, h = the amount of hops, b = boolean representing if there is a process also with that largest ID.</p>
+<p>This algorithm terminates when a unique leader is identified. The size of the network N needs to be known in advance. The performance of the algorithm is O(N logN) messages. It is proven to be a Las Vegas algorithm because it is always correct and terminates with probability one.</p>
+<h2 id="echo-algorithm-with-extinction-1">Echo algorithm with extinction</h2>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-65.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-66.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-67.png" alt="alt text"></p>
+<h2 id="itai-rodeh-ring-size-algorithm">Itai-Rodeh ring size algorithm</h2>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-68.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-69.png" alt="alt text"></p>
+<p><img src="file:////home/matisse/Documents/school_24_25/PDS/summary/images/image-70.png" alt="alt text"></p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
